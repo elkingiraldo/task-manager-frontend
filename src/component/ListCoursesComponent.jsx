@@ -18,7 +18,7 @@ class ListCoursesComponent extends Component {
     }
 
     refreshCourses() {
-        CourseDataService.retrieveAllCourses(INSTRUCTOR)//HARDCODED
+        CourseDataService.retrieveAllTasks(INSTRUCTOR)//HARDCODED
             .then(
                 response => {
                     this.setState({ courses: response.data })

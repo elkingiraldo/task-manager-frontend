@@ -7,7 +7,7 @@ class LoginComponent extends Component {
         super(props)
 
         this.state = {
-            username: 'in28minutes',
+            username: 'elkingiraldo91',
             password: '',
             hasLoginFailed: false,
             showSuccessMessage: false
@@ -27,28 +27,15 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-        //in28minutes,dummy
-        // if(this.state.username==='in28minutes' && this.state.password==='dummy'){
-        //     AuthenticationService.registerSuccessfulLogin(this.state.username,this.state.password)
-        //     this.props.history.push(`/courses`)
-        //     //this.setState({showSuccessMessage:true})
-        //     //this.setState({hasLoginFailed:false})
-        // }
-        // else {
-        //     this.setState({showSuccessMessage:false})
-        //     this.setState({hasLoginFailed:true})
-        // }
-
        AuthenticationService
-            .executeBasicAuthenticationService(this.state.username, this.state.password)
+            .executeJwtAuthenticationService(this.state.username, this.state.password)
             .then(() => {
                 AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-                this.props.history.push(`/courses`)
+                this.props.history.push(`/tasks`)
             }).catch(() => {
                 this.setState({ showSuccessMessage: false })
                 this.setState({ hasLoginFailed: true })
             })
-
     }
 
     render() {

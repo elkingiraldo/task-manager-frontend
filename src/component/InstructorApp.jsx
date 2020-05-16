@@ -20,7 +20,7 @@ class InstructorApp extends Component {
                             <Route path="/" exact component={LoginComponent} />
                             <Route path="/login" exact component={LoginComponent} />
                             <AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
-                            <AuthenticatedRoute path="/courses" exact component={ListCoursesComponent} />
+                            <AuthenticatedRoute path="/tasks" exact component={ListCoursesComponent} />
                         </Switch>
                     </>
                 </Router>
