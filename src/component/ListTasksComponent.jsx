@@ -1,27 +1,27 @@
 import React, { Component } from 'react'
-import CourseDataService from '../service/CourseDataService.js';
+import TaskDataService from '../service/TaskDataService.js';
 
 const INSTRUCTOR = 'in28minutes'
 
-class ListCoursesComponent extends Component {
+class ListTasksComponent extends Component {
     constructor(props) {
         super(props)
         this.state = {
-            courses: [],
+            tasks: [],
             message: null
         }
-        this.refreshCourses = this.refreshCourses.bind(this)
+        this.refreshtasks = this.refreshtasks.bind(this)
     }
 
     componentDidMount() {
-        this.refreshCourses();
+        this.refreshtasks();
     }
 
-    refreshCourses() {
-        CourseDataService.retrieveAllTasks(INSTRUCTOR)//HARDCODED
+    refreshtasks() {
+        TaskDataService.retrieveAllTasks(INSTRUCTOR)//HARDCODED
             .then(
                 response => {
-                    this.setState({ courses: response.data })
+                    this.setState({ tasks: response.data })
                 }
             )
     }
@@ -31,22 +31,26 @@ class ListCoursesComponent extends Component {
         console.log('render')
         return (
             <div className="container">
-                <h3>All Courses</h3>
+                <h3>All Tasks</h3>
                 <div className="container">
                     <table className="table">
                         <thead>
                             <tr>
                                 <th>Id</th>
                                 <th>Description</th>
+                                <th>Status</th>
+                                <th>Estimated day of completion</th>
                             </tr>
                         </thead>
                         <tbody>
                             {
-                                this.state.courses.map(
-                                    course =>
-                                        <tr key={course.id}>
-                                            <td>{course.id}</td>
-                                            <td>{course.description}</td>
+                                this.state.tasks.map(
+                                    task =>
+                                        <tr key={task.id}>
+                                            <td>{task.id}</td>
+                                            <td>{task.description}</td>
+                                            <td>{task.status}</td>
+                                            <td>{task.edc}</td>
                                         </tr>
                                 )
                             }
@@ -58,4 +62,4 @@ class ListCoursesComponent extends Component {
     }
 }
 
-export default ListCoursesComponent
+export default ListTasksComponent

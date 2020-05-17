@@ -5,14 +5,14 @@ const PASSWORD = 'dummy'
 const COURSE_API_URL = 'http://localhost:8080'
 const INSTRUCTOR_API_URL = `${COURSE_API_URL}/instructors/${INSTRUCTOR}`
 
-class CourseDataService {
+class TaskDataService {
 
     retrieveAllTasks(name) {
-        //console.log('executed service')
-        return axios.get(`${COURSE_API_URL}/tasks`,
+        console.log('executed service elkin')
+        return axios.get(`${COURSE_API_URL}/v1.0/tasks`,
             //{ headers: { authorization: 'Basic ' + window.btoa(INSTRUCTOR + ":" + PASSWORD) } }
         );
     }
 }
 
-export default new CourseDataService()
+export default new TaskDataService()

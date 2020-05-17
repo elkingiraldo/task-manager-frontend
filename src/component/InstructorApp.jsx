@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import ListCoursesComponent from './ListCoursesComponent';
+import ListTasksComponent from './ListTasksComponent';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LoginComponent from './LoginComponent';
 import LogoutComponent from './LogoutComponent';
@@ -20,7 +20,7 @@ class InstructorApp extends Component {
                             <Route path="/" exact component={LoginComponent} />
                             <Route path="/login" exact component={LoginComponent} />
                             <AuthenticatedRoute path="/logout" exact component={LogoutComponent} />
-                            <AuthenticatedRoute path="/tasks" exact component={ListCoursesComponent} />
+                            <AuthenticatedRoute path="/v1.0/tasks" exact component={ListTasksComponent} />
                         </Switch>
                     </>
                 </Router>

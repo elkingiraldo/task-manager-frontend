@@ -8,7 +8,7 @@ class LoginComponent extends Component {
 
         this.state = {
             username: 'elkingiraldo91',
-            password: '',
+            password: 'elkinpassword',
             hasLoginFailed: false,
             showSuccessMessage: false
         }
@@ -29,9 +29,9 @@ class LoginComponent extends Component {
     loginClicked() {
        AuthenticationService
             .executeJwtAuthenticationService(this.state.username, this.state.password)
-            .then(() => {
-                AuthenticationService.registerSuccessfulLogin(this.state.username, this.state.password)
-                this.props.history.push(`/tasks`)
+            .then((res) => {
+                AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, res.data.token)
+                this.props.history.push(`/v1.0/tasks`)
             }).catch(() => {
                 this.setState({ showSuccessMessage: false })
                 this.setState({ hasLoginFailed: true })
