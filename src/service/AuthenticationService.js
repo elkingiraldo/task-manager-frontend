@@ -1,8 +1,9 @@
 import axios from 'axios'
 
-const API_URL = 'http://localhost:8080'
+const API_URL = 'http://localhost:8080';
 
-export const USER_NAME_SESSION_ATTRIBUTE_NAME = 'authenticatedUser'
+export const SESSION_USER_NAME = 'authenticatedUser';
+export const SESSION_USER_TOKEN = 'userToken';
 
 class AuthenticationService {
 
@@ -15,8 +16,9 @@ class AuthenticationService {
     }
 
     registerSuccessfulLoginForJwt(username, token) {
-        localStorage.setItem(USER_NAME_SESSION_ATTRIBUTE_NAME, username)
-        this.setupAxiosInterceptors(this.createJWTToken(token))
+        sessionStorage.setItem(SESSION_USER_NAME, username);
+        sessionStorage.setItem(SESSION_USER_TOKEN, token);
+        this.setupAxiosInterceptorsFromToken(this.createJWTToken(token));
     }
 
     createJWTToken(token) {
@@ -24,22 +26,27 @@ class AuthenticationService {
     }
 
     logout() {
-        localStorage.removeItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+        sessionStorage.removeItem(SESSION_USER_NAME);
+        sessionStorage.removeItem(SESSION_USER_TOKEN);
     }
 
     isUserLoggedIn() {
-        let user = localStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+        let user = sessionStorage.getItem(SESSION_USER_NAME);
         if (user === null) return false
         return true
     }
 
     getLoggedInUserName() {
-        let user = localStorage.getItem(USER_NAME_SESSION_ATTRIBUTE_NAME);
+        let user = sessionStorage.getItem(SESSION_USER_NAME);
         if (user === null) return ''
         return user
     }
 
-    setupAxiosInterceptors(token) {
+    setupAxiosInterceptors() {
+        this.setupAxiosInterceptorsFromToken(this.createJWTToken(sessionStorage.getItem(SESSION_USER_TOKEN)));
+    }
+
+    setupAxiosInterceptorsFromToken(token) {
         axios.interceptors.request.use(
             (config) => {
                 if (this.isUserLoggedIn()) {
@@ -48,6 +55,21 @@ class AuthenticationService {
                 return config
             }
         )
+    }
+
+    tokenIsExpired() {
+        const { exp } = this.parseJwt(sessionStorage.getItem(SESSION_USER_TOKEN));
+        return (typeof exp !== 'undefined' && Date.now() >= exp * 1000);
+    }
+
+    parseJwt(token) {
+        let base64Url = token.split('.')[1];
+        let base64 = base64Url.replace(/-/g, '+').replace(/_/g, '/');
+        const jsonPayload = decodeURIComponent(atob(base64).split('').map(function (c) {
+            return '%' + ('00' + c.charCodeAt(0).toString(16)).slice(-2);
+        }).join(''));
+
+        return JSON.parse(jsonPayload);
     }
 }
 

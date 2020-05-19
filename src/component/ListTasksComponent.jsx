@@ -17,17 +17,21 @@ class ListTasksComponent extends Component {
     }
 
     refreshtasks() {
-        TaskDataService.retrieveAllTasks(AuthenticationService.getLoggedInUserName())
-            .then(
-                response => {
-                    this.setState({ tasks: response.data })
-                }
-            )
+        if (AuthenticationService.tokenIsExpired()) {
+            AuthenticationService.logout();
+            this.props.history.push(`/login`);
+        } else {
+            AuthenticationService.setupAxiosInterceptors();
+            TaskDataService.retrieveAllTasks(AuthenticationService.getLoggedInUserName())
+                .then(
+                    response => {
+                        this.setState({ tasks: response.data })
+                    }
+                )
+        }
     }
 
-
     render() {
-        console.log('render')
         return (
             <div className="container">
                 <h3>All Tasks</h3>

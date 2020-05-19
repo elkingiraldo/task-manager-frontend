@@ -27,7 +27,7 @@ class LoginComponent extends Component {
     }
 
     loginClicked() {
-       AuthenticationService
+        AuthenticationService
             .executeJwtAuthenticationService(this.state.username, this.state.password)
             .then((res) => {
                 AuthenticationService.registerSuccessfulLoginForJwt(this.state.username, res.data.token)
