@@ -1,7 +1,6 @@
 import React, { Component } from 'react'
 import TaskDataService from '../service/TaskDataService.js';
-
-const INSTRUCTOR = 'in28minutes'
+import AuthenticationService from '../service/AuthenticationService.js';
 
 class ListTasksComponent extends Component {
     constructor(props) {
@@ -18,7 +17,7 @@ class ListTasksComponent extends Component {
     }
 
     refreshtasks() {
-        TaskDataService.retrieveAllTasks(INSTRUCTOR)//HARDCODED
+        TaskDataService.retrieveAllTasks(AuthenticationService.getLoggedInUserName())
             .then(
                 response => {
                     this.setState({ tasks: response.data })

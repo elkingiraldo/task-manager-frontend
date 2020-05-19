@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route, Switch } from 'react-router-dom'
 import LoginComponent from './LoginComponent';
 import LogoutComponent from './LogoutComponent';
 import MenuComponent from './MenuComponent';
-import AuthenticationService from '../service/AuthenticationService';
 import AuthenticatedRoute from './AuthenticatedRoute';
 
 class InstructorApp extends Component {
