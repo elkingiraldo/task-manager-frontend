@@ -8,11 +8,8 @@ class TaskDataService {
         return axios.get(`${COURSE_API_URL}/v1.0/tasks/${username}`);
     }
 
-    addNewTask(username) {
-        return axios.post(`${COURSE_API_URL}/v1.0/tasks/${username}`,{
-            description: 'Nueva tarea 2',
-	        edc: '2020-07-16T05:25:34.121Z'
-        });
+    addNewTask(username, newTask) {
+        return axios.post(`${COURSE_API_URL}/v1.0/tasks/${username}`, newTask);
     }
 
 }

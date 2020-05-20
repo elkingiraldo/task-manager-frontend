@@ -42,8 +42,8 @@ class LoginComponent extends Component {
         return (
             <div className="container">
 
-                <div class="title_container">
-                    <div class="title_column">
+                <div className="inline_container">
+                    <div className="title_column">
                         <h1>Sign In</h1>
                     </div>
                 </div>
