@@ -31,6 +31,12 @@ class ListTasksComponent extends Component {
         }
     }
 
+    formatedEstimatedComplentionDate(stringEcd) {
+        const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric', hour: 'numeric', minute: 'numeric', second: 'numeric' };
+        const edc = new Date(stringEcd);
+        return edc.toLocaleDateString("en-US", options);
+    }
+
     render() {
         return (
             <div className="container">
@@ -47,15 +53,16 @@ class ListTasksComponent extends Component {
                         </thead>
                         <tbody>
                             {
-                                this.state.tasks.map(
-                                    task =>
+                                this.state.tasks
+                                    .sort((a, b) => new Date(b.edc) - new Date(a.edc))
+                                    .map(task =>
                                         <tr key={task.id}>
                                             <td>{task.id}</td>
                                             <td>{task.description}</td>
                                             <td>{task.status}</td>
-                                            <td>{task.edc}</td>
+                                            <td>{this.formatedEstimatedComplentionDate(task.edc)}</td>
                                         </tr>
-                                )
+                                    )
                             }
                         </tbody>
                     </table>
