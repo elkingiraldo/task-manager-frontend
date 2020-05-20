@@ -40,17 +40,32 @@ class LoginComponent extends Component {
 
     render() {
         return (
-            <div>
-                <h1>Login</h1>
+            <div className="container">
+
+                <div class="title_container">
+                    <div class="title_column">
+                        <h1>Sign In</h1>
+                    </div>
+                </div>
+
                 <div className="container">
-                    {/*<ShowInvalidCredentials hasLoginFailed={this.state.hasLoginFailed}/>*/}
                     {this.state.hasLoginFailed && <div className="alert alert-warning">Invalid Credentials</div>}
                     {this.state.showSuccessMessage && <div>Login Sucessful</div>}
-                    {/*<ShowLoginSuccessMessage showSuccessMessage={this.state.showSuccessMessage}/>*/}
-                    User Name: <input type="text" name="username" value={this.state.username} onChange={this.handleChange} />
-                    Password: <input type="password" name="password" value={this.state.password} onChange={this.handleChange} />
-                    <button className="btn btn-success" onClick={this.loginClicked}>Login</button>
+
+                    <div className="form-group">
+                        <label>User Name</label>
+                        <input type="text" className="form-control" placeholder="Enter email" name="username" value={this.state.username} onChange={this.handleChange} />
+                    </div>
+
+                    <div className="form-group">
+                        <label>Password</label>
+                        <input type="password" className="form-control" placeholder="Enter password" name="password" value={this.state.password} onChange={this.handleChange} />
+                    </div>
+
+                    <button type="submit" className="btn btn-primary btn-block" onClick={this.loginClicked}>Login</button>
+                    {/*<p className="forgot-password text-right">Forgot <a href="#">password?</a></p>*/}
                 </div>
+
             </div>
         )
     }
