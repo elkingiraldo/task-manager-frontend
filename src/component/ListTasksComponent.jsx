@@ -9,10 +9,9 @@ class ListTasksComponent extends Component {
 
         this.state = {
             tasks: [],
-            message: null,
             showModal: false,
-            newTaskDescription: "",
-            newTaskEdc: "2021-05-16T05:25:34.000Z"
+            fields: {},
+            errors: {}
         }
 
         this.refreshtasks = this.refreshtasks.bind(this)
@@ -20,7 +19,7 @@ class ListTasksComponent extends Component {
         this.handleModalShow = this.handleModalShow.bind(this)
         this.handleModalClose = this.handleModalClose.bind(this)
         this.addNewTask = this.addNewTask.bind(this)
-        this.handleChange = this.handleChange.bind(this)
+        this.cleanModal = this.cleanModal.bind(this)
     }
 
     componentDidMount() {
@@ -35,6 +34,17 @@ class ListTasksComponent extends Component {
         this.setState({ ...this.state, showModal: false });
     }
 
+    cleanModal() {
+        this.setState({
+            ...this.state, 
+            showModal: false,
+            fields: {
+                newTaskDescription: "",
+                newTaskEdc: ""
+            } 
+        });
+    }
+
     verifySession() {
         if (AuthenticationService.tokenIsExpired()) {
             AuthenticationService.logout();
@@ -46,15 +56,15 @@ class ListTasksComponent extends Component {
         this.verifySession();
 
         const newTask = {
-            description: this.state.newTaskDescription,
-            edc: this.state.newTaskEdc
+            description: this.state.fields.newTaskDescription,
+            edc: this.state.fields.newTaskEdc
         }
 
         AuthenticationService.setupAxiosInterceptors();
         TaskDataService.addNewTask(AuthenticationService.getLoggedInUserName(), newTask)
             .then(() => {
                 this.refreshtasks();
-                this.handleModalClose();
+                this.cleanModal();
             })
             .catch(error => {
                 console.log("Elkiiiinnnn: " + error);
@@ -80,14 +90,41 @@ class ListTasksComponent extends Component {
         return edc.toLocaleDateString("en-US", options);
     }
 
-    handleChange(event) {
-        this.setState(
-            {
-                [event.target.name]
-                    : event.target.value
-            }
-        )
+    handleChange(field, e){         
+        let fields = this.state.fields;
+        fields[field] = e.target.value;        
+        this.setState({fields});
     }
+
+    submit(e){
+        e.preventDefault();
+
+        if(!this.formValidation()){
+            alert("Form has errors.");
+        }else{
+          this.addNewTask();
+        }
+
+    }
+
+    formValidation(){
+        let fields = this.state.fields;
+        let errors = {};
+        let formIsValid = true;
+
+        if(!fields["newTaskDescription"]){
+           formIsValid = false;
+           errors["newTaskDescription"] = "Cannot be empty";
+        }
+
+        if(!fields["newTaskEdc"]){
+            formIsValid = false;
+            errors["newTaskEdc"] = "Cannot be empty";
+         }
+
+       this.setState({errors: errors});
+       return formIsValid;
+   }
 
     render() {
         return (
@@ -146,18 +183,20 @@ class ListTasksComponent extends Component {
 
                     <div className="form-group">
                         <label>Description</label>
-                        <input type="text" className="form-control" placeholder="Enter description" name="newTaskDescription" value={this.state.newTaskDescription} onChange={this.handleChange} />
+                        <input type="text" className="form-control" placeholder="Enter description" name="newTaskDescription" value={this.state.fields["newTaskDescription"]} onChange={this.handleChange.bind(this, "newTaskDescription")} />
+                        <span className="error_style">{this.state.errors["newTaskDescription"]}</span>    
                     </div>
 
                     <div className="form-group">
                         <label>Estimated Date Of Completion</label>
-                        <input type="text" className="form-control" placeholder="Enter estimated date of completion" name="newTaskEdc" value={this.state.newTaskEdc} onChange={this.handleChange} />
+                        <input type="text" className="form-control" placeholder="Enter estimated date of completion" name="newTaskEdc" value={this.state.fields["newTaskEdc"]} onChange={this.handleChange.bind(this, "newTaskEdc")} />
+                        <span className="error_style">{this.state.errors["newTaskEdc"]}</span>  
                     </div>
 
                     <div className="inline_container">
                         <div className="move_right">
-                            <button className="btn button_padding" onClick={this.handleModalClose}>Close</button>
-                            <button className="btn btn-success button_margin" onClick={this.addNewTask}>Add New Task</button>
+                            <button className="btn btn-danger button_margin" onClick={this.handleModalClose}>Close</button>
+                            <button className="btn btn-success button_margin" onClick={this.submit.bind(this)}>Add New Task</button>
                         </div>
                     </div>
 
