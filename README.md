@@ -1,21 +1,26 @@
 # task-manager-frontend
 Frontend implementation for Task Manager app
 
-# Setup project
+## Setup project
 This project use the new JavaScript package manager YARN and you only need to run the following command in the root project:
 
 ```
 $ yarn
 ```
 
-# Starting project
+## Starting project
 You only need to run following command into the root path of the project:
 
 ```
 $ yarn start
 ```
 
-# Generalities
+## Generalities
+This project is running in the port 3000 and for accessing it you need to go to:
+
+```
+http://localhost:3000
+```
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
