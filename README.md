@@ -21,8 +21,12 @@ This project is running in the port 3000 and for accessing it you need to go to:
 ```
 http://localhost:3000
 ```
+Into the project, there are HARDCODED credentials in order to easy test.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+```
+username: elkingiraldo91
+password: elkinpassword
+```
 
 ## Available Scripts
 
