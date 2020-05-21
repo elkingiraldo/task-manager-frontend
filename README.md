@@ -15,6 +15,8 @@ You only need to run following command into the root path of the project:
 $ yarn start
 ```
 
+# Generalities
+
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
 ## Available Scripts
