@@ -10,7 +10,10 @@ class ListTasksComponent extends Component {
         this.state = {
             tasks: [],
             showModal: false,
-            fields: {},
+            fields: {
+                newTaskDescription: "",
+                newTaskEdc: ""
+            },
             errors: {}
         }
 

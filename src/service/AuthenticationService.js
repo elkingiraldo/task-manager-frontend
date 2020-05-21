@@ -8,7 +8,6 @@ export const SESSION_USER_TOKEN = 'userToken';
 class AuthenticationService {
 
     executeJwtAuthenticationService(username, password) {
-        console.log(username);
         return axios.post(`${API_URL}/authenticate`, {
             username,
             password
