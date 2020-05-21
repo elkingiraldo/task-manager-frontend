@@ -21,7 +21,7 @@ This project is running in the port 3000 and for accessing it you need to go to:
 ```
 http://localhost:3000
 ```
-Into the project, there are HARDCODED credentials in order to easy test.
+Into the project, there are HARDCODED credentials in order to easy test, but you can go to backend project [https://github.com/elkingiraldo/task-manager-backend](task-manager-backend) to search other users.
 
 ```
 username: elkingiraldo91
