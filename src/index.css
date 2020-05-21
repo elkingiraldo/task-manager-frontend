@@ -52,3 +52,7 @@ code {
 .error_style {
   color: red;
 }
+
+.date_time_picker {
+  background-color: white;
+}
