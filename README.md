@@ -1,5 +1,5 @@
 # task-manager-frontend
-Frontend implementation for Task Manager app
+Frontend implementation for Task Manager app. The backend part is into [task-manager-backend](https://github.com/elkingiraldo/task-manager-backend) project.
 
 ## Setup project
 This project use the new JavaScript package manager YARN and you only need to run the following command in the root project:
