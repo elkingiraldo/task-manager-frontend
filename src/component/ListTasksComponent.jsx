@@ -158,7 +158,6 @@ class ListTasksComponent extends Component {
                     <table className="table">
                         <thead>
                             <tr>
-                                <th>Id</th>
                                 <th>Description</th>
                                 <th>Status</th>
                                 <th>Estimated day of completion</th>
@@ -170,7 +169,6 @@ class ListTasksComponent extends Component {
                                     .sort((a, b) => new Date(b.edc) - new Date(a.edc))
                                     .map(task =>
                                         <tr key={task.id}>
-                                            <td>{task.id}</td>
                                             <td>{task.description}</td>
                                             <td>{task.status}</td>
                                             <td>{this.formatedEstimatedComplentionDate(task.edc)}</td>
